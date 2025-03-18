@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import altair as alt
-
+import os
 
 # Mengatur style matplotlib
 plt.style.use('seaborn-v0_8-darkgrid')
@@ -16,6 +16,15 @@ st.set_page_config(page_title="Bike Sharing Dashboard", layout="wide")
 # Fungsi untuk memuat data (menggunakan cache agar tidak di-load ulang setiap interaksi)
 @st.cache
 def load_data():
+    # Dapatkan directory di mana file ini berada
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # Bangun path ke folder 'data' (asumsikan berada satu level di atas folder dashboard)
+    data_dir = os.path.join(current_dir, "..", "data")
+    
+    # Bangun path untuk file CSV
+    hour_csv = os.path.join(data_dir, "hour.csv")
+    day_csv = os.path.join(data_dir, "day.csv")
+    
     hour_df = pd.read_csv("../data/hour.csv")
     day_df = pd.read_csv("../data/day.csv")
     # Konversi kolom 'dteday' menjadi datetime
